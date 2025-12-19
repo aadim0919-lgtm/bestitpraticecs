@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Best IT Practices - Strategic Tech Consulting</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0f172a', /* Slate 900 */
+                        secondary: '#8b5cf6', /* Violet 500 */
+                        accent: '#c4b5fd', /* Violet 300 */
+                        light: '#f8fafc',
+                        dark: '#020617',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        h1, h2, h3, h4, .font-display {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .hero-bg {
+            /* Changed gradient to Violet/Dark Slate */
+            background-image: linear-gradient(rgba(15, 23, 42, 0.9), rgba(88, 28, 135, 0.8)), url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .service-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-color: #8b5cf6;
+        }
+
+        /* Mobile Menu Animation */
+        #mobile-menu {
+            transition: max-height 0.3s ease-in-out;
+            max-height: 0;
+            overflow: hidden;
+        }
+        #mobile-menu.active {
+            max-height: 500px;
+        }
+    </style>
+</head>
+<body class="text-slate-600 antialiased bg-slate-50">
+
+    <!-- Top Bar -->
+    <div class="bg-slate-900 border-b border-slate-800 py-2 hidden md:block">
+        <div class="container mx-auto px-6 flex justify-between items-center text-sm text-slate-400">
+            <div class="flex items-center space-x-6">
+                <span><i class="fas fa-envelope mr-2 text-secondary"></i>contact@bestitpractices.com</span>
+                <span><i class="fas fa-phone mr-2 text-secondary"></i>+91-9876543210</span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="#" class="hover:text-white transition">Client Portal</a>
+                <span class="text-slate-700">|</span>
+                <a href="#" class="hover:text-white transition">Careers</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-slate-100">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-secondary to-indigo-600 text-white flex items-center justify-center rounded-xl font-bold text-xl shadow-lg shadow-violet-500/30">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <span class="text-xl md:text-2xl font-bold text-slate-900 tracking-tight font-display">Best IT Practices</span>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#" class="text-slate-900 font-medium hover:text-secondary transition">Home</a>
+                    <a href="#about" class="text-slate-600 font-medium hover:text-secondary transition">About</a>
+                    <div class="relative group">
+                        <button class="text-slate-600 font-medium hover:text-secondary transition flex items-center">
+                            Solutions <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        <!-- Dropdown -->
+                        <div class="absolute left-0 mt-4 w-64 bg-white border border-slate-100 shadow-xl rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50 p-2">
+                            <a href="#data-management" class="block px-4 py-3 text-sm text-slate-600 hover:bg-violet-50 hover:text-secondary rounded-lg font-medium transition">
+                                <i class="fas fa-database w-5 opacity-70"></i> Data Services
+                            </a>
+                            <a href="#enterprise" class="block px-4 py-3 text-sm text-slate-600 hover:bg-violet-50 hover:text-secondary rounded-lg font-medium transition">
+                                <i class="fas fa-building w-5 opacity-70"></i> Enterprise Suite
+                            </a>
+                            <a href="#app-transform" class="block px-4 py-3 text-sm text-slate-600 hover:bg-violet-50 hover:text-secondary rounded-lg font-medium transition">
+                                <i class="fas fa-rocket w-5 opacity-70"></i> Digital Transformation
+                            </a>
+                        </div>
+                    </div>
+                    <a href="#" class="text-slate-600 font-medium hover:text-secondary transition">Cloud</a>
+                    <a href="#contact" class="px-6 py-2.5 bg-slate-900 text-white rounded-full font-medium hover:bg-secondary transition shadow-lg hover:shadow-violet-500/25 transform hover:-translate-y-0.5">Contact Us</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-slate-600 focus:outline-none p-2 rounded-lg hover:bg-slate-100">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden bg-white border-t border-slate-100">
+            <div class="px-6 py-4 space-y-4">
+                <a href="#" class="block text-secondary font-medium">Home</a>
+                <a href="#about" class="block text-slate-600 font-medium">About</a>
+                <a href="#services" class="block text-slate-600 font-medium">Solutions</a>
+                <a href="#" class="block text-slate-600 font-medium">Cloud</a>
+                <a href="#contact" class="block text-white bg-secondary px-4 py-2 rounded-lg text-center font-medium">Contact Us</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-bg text-white min-h-[650px] flex items-center relative overflow-hidden">
+        <!-- Abstract Shapes -->
+        <div class="absolute top-0 right-0 -mt-20 -mr-20 w-96 h-96 bg-secondary blur-[100px] opacity-30 rounded-full pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 -mb-20 -ml-20 w-80 h-80 bg-blue-500 blur-[100px] opacity-20 rounded-full pointer-events-none"></div>
+
+        <div class="container mx-auto px-6 relative z-10 py-20">
+            <div class="max-w-4xl animate-fade-in-up">
+                <div class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md rounded-full text-sm font-semibold tracking-wide border border-white/10 mb-6 shadow-sm">
+                    <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+                    Innovating IT Excellence
+                </div>
+                <h1 class="text-5xl md:text-7xl font-bold leading-tight mb-8 font-display">
+                    Powering Your Future with <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-violet-300 to-indigo-300">Best IT Practices</span>
+                </h1>
+                <p class="text-xl text-slate-200 mb-12 max-w-2xl font-light leading-relaxed">
+                    We don't just solve problems; we engineer growth. Experience the pinnacle of technological expertise and strategic innovation.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-5">
+                    <a href="#contact" class="px-8 py-4 bg-secondary hover:bg-violet-600 text-white rounded-full font-semibold transition shadow-xl shadow-violet-900/20 text-center flex items-center justify-center gap-2">
+                        Start Transformation <i class="fas fa-arrow-right text-sm"></i>
+                    </a>
+                    <a href="#services" class="px-8 py-4 bg-white/5 backdrop-blur-sm border border-white/20 hover:bg-white hover:text-primary text-white rounded-full font-semibold transition text-center">
+                        View Solutions
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 bg-white relative">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-20">
+                <h4 class="text-secondary font-bold uppercase tracking-widest text-sm mb-3">Our Expertise</h4>
+                <h2 class="text-4xl font-bold text-slate-900">Industry-Leading Solutions</h2>
+                <div class="w-24 h-1.5 bg-gradient-to-r from-secondary to-indigo-600 mx-auto mt-6 rounded-full"></div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Service 1: Data Management -->
+                <div id="data-management" class="service-card bg-white p-10 rounded-3xl border border-slate-100 shadow-lg relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-40 h-40 bg-violet-50 rounded-bl-[100px] -mr-10 -mt-10 transition-transform duration-500 group-hover:scale-110"></div>
+                    <div class="w-16 h-16 bg-violet-100 rounded-2xl flex items-center justify-center text-secondary text-3xl mb-8 relative z-10 shadow-sm">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-900 mb-4 relative z-10">Data Management</h3>
+                    <p class="text-slate-600 mb-8 relative z-10 leading-relaxed">
+                        Transform your data into your most valuable asset. We provide end-to-end management, security, and modernization strategies.
+                    </p>
+                    <ul class="space-y-3 mb-8 relative z-10">
+                        <li class="flex items-center text-slate-700 font-medium"><i class="fas fa-check-circle text-secondary mr-3"></i> Advanced Analytics</li>
+                        <li class="flex items-center text-slate-700 font-medium"><i class="fas fa-check-circle text-secondary mr-3"></i> Cloud Migration</li>
+                        <li class="flex items-center text-slate-700 font-medium"><i class="fas fa-check-circle text-secondary mr-3"></i> Security Compliance</li>
+                    </ul>
+                </div>
+
+                <!-- Service 2: Enterprise Solutions -->
+                <div id="enterprise" class="service-card bg-slate-900 p-10 rounded-3xl border border-slate-800 shadow-xl relative overflow-hidden group">
+                    <!-- Dark Card Variant -->
+                    <div class="absolute top-0 right-0 w-40 h-40 bg-slate-800 rounded-bl-[100px] -mr-10 -mt-10 transition-transform duration-500 group-hover:scale-110"></div>
+                    <div class="w-16 h-16 bg-indigo-500/20 rounded-2xl flex items-center justify-center text-indigo-400 text-3xl mb-8 relative z-10 border border-indigo-500/30">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4 relative z-10">Enterprise Suite</h3>
+                    <p class="text-slate-400 mb-8 relative z-10 leading-relaxed">
+                        Seamlessly integrate and scale your operations. We implement robust enterprise software tailored to your specific organizational DNA.
+                    </p>
+                    <ul class="space-y-3 mb-8 relative z-10">
+                        <li class="flex items-center text-slate-300 font-medium"><i class="fas fa-check-circle text-indigo-400 mr-3"></i> ERP Implementation</li>
+                        <li class="flex items-center text-slate-300 font-medium"><i class="fas fa-check-circle text-indigo-400 mr-3"></i> Global Integration</li>
+                        <li class="flex items-center text-slate-300 font-medium"><i class="fas fa-check-circle text-indigo-400 mr-3"></i> 24/7 Support</li>
+                    </ul>
+                </div>
+
+                <!-- Service 3: Application Transformation -->
+                <div id="app-transform" class="service-card bg-white p-10 rounded-3xl border border-slate-100 shadow-lg relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-40 h-40 bg-teal-50 rounded-bl-[100px] -mr-10 -mt-10 transition-transform duration-500 group-hover:scale-110"></div>
+                    <div class="w-16 h-16 bg-teal-100 rounded-2xl flex items-center justify-center text-teal-600 text-3xl mb-8 relative z-10 shadow-sm">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-900 mb-4 relative z-10">App Innovation</h3>
+                    <p class="text-slate-600 mb-8 relative z-10 leading-relaxed">
+                        Modernize legacy systems with agility. We re-engineer your applications for the cloud era using cutting-edge DevOps practices.
+                    </p>
+                    <ul class="space-y-3 mb-8 relative z-10">
+                        <li class="flex items-center text-slate-700 font-medium"><i class="fas fa-check-circle text-teal-500 mr-3"></i> Cloud Native Apps</li>
+                        <li class="flex items-center text-slate-700 font-medium"><i class="fas fa-check-circle text-teal-500 mr-3"></i> Microservices</li>
+                        <li class="flex items-center text-slate-700 font-medium"><i class="fas fa-check-circle text-teal-500 mr-3"></i> Automated CI/CD</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About / Stats Section -->
+    <section id="about" class="py-24 bg-slate-50 border-y border-slate-200">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center gap-20">
+                <!-- Content Side -->
+                <div class="lg:w-1/2 order-2 lg:order-1">
+                    <h4 class="text-secondary font-bold uppercase tracking-widest text-sm mb-3">Who We Are</h4>
+                    <h2 class="text-4xl font-bold text-slate-900 mb-6 leading-tight">Decades of Innovation.<br>Proven Results.</h2>
+                    <p class="text-slate-600 mb-6 leading-relaxed text-lg">
+                        Since 2012, <strong>Best IT Practices</strong> has been at the forefront of the digital revolution. We don't just follow trends; we set the standards for IT excellence.
+                    </p>
+                    <p class="text-slate-600 mb-10 leading-relaxed">
+                        Our team of 150+ elite professionals brings over 400 years of combined experience. We are the architects behind some of the most complex digital transformations in the industry.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#contact" class="px-8 py-3 bg-slate-900 text-white rounded-lg font-medium hover:bg-secondary transition shadow-lg">Work With Us</a>
+                        <div class="flex items-center gap-3 px-6 py-3 border border-slate-200 rounded-lg bg-white">
+                            <i class="fas fa-certificate text-yellow-500 text-xl"></i>
+                            <span class="font-semibold text-slate-700">Certified Partners</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Image/Stats Side -->
+                <div class="lg:w-1/2 order-1 lg:order-2">
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 text-center transform hover:-translate-y-2 transition duration-300">
+                            <h3 class="text-5xl font-bold text-secondary mb-2 font-display">2012</h3>
+                            <p class="text-xs text-slate-400 font-bold uppercase tracking-widest">Founded</p>
+                        </div>
+                        <div class="bg-gradient-to-br from-secondary to-indigo-600 p-8 rounded-2xl shadow-lg text-center text-white transform translate-y-8 hover:translate-y-6 transition duration-300">
+                            <h3 class="text-5xl font-bold mb-2 font-display">150+</h3>
+                            <p class="text-xs text-indigo-200 font-bold uppercase tracking-widest">Experts</p>
+                        </div>
+                        <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 text-center transform hover:-translate-y-2 transition duration-300">
+                            <h3 class="text-5xl font-bold text-slate-800 mb-2 font-display">400+</h3>
+                            <p class="text-xs text-slate-400 font-bold uppercase tracking-widest">Years Exp.</p>
+                        </div>
+                        <div class="bg-slate-200 p-8 rounded-2xl shadow-inner text-center transform translate-y-8 hover:translate-y-6 transition duration-300">
+                            <i class="fas fa-globe text-4xl text-slate-400 mb-3"></i>
+                            <p class="text-xs text-slate-500 font-bold uppercase tracking-widest">Global Reach</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Engagement Models -->
+    <section class="py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-slate-900">Flexible Engagement Models</h2>
+                <p class="text-slate-500 mt-4 max-w-2xl mx-auto text-lg"> tailored to align with your strategic roadmap.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Model 1 -->
+                <div class="p-8 bg-slate-50 rounded-2xl hover:bg-white hover:shadow-xl hover:shadow-violet-500/10 transition-all duration-300 border border-transparent hover:border-slate-100 group text-center">
+                    <div class="w-16 h-16 bg-white shadow-sm text-secondary rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-secondary group-hover:text-white transition">
+                        <i class="fas fa-users text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-3">Dedicated Team</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">Your own off-site development center. Full control, lower costs.</p>
+                </div>
+
+                <!-- Model 2 -->
+                <div class="p-8 bg-slate-50 rounded-2xl hover:bg-white hover:shadow-xl hover:shadow-emerald-500/10 transition-all duration-300 border border-transparent hover:border-slate-100 group text-center">
+                    <div class="w-16 h-16 bg-white shadow-sm text-emerald-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-emerald-500 group-hover:text-white transition">
+                        <i class="fas fa-tasks text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-3">Project Based</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">End-to-end project delivery with guaranteed quality outcomes.</p>
+                </div>
+
+                <!-- Model 3 -->
+                <div class="p-8 bg-slate-50 rounded-2xl hover:bg-white hover:shadow-xl hover:shadow-indigo-500/10 transition-all duration-300 border border-transparent hover:border-slate-100 group text-center">
+                    <div class="w-16 h-16 bg-white shadow-sm text-indigo-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-indigo-500 group-hover:text-white transition">
+                        <i class="fas fa-headset text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-3">Managed Services</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">24/7 comprehensive support. Focus on business, we handle IT.</p>
+                </div>
+
+                <!-- Model 4 -->
+                <div class="p-8 bg-slate-50 rounded-2xl hover:bg-white hover:shadow-xl hover:shadow-orange-500/10 transition-all duration-300 border border-transparent hover:border-slate-100 group text-center">
+                    <div class="w-16 h-16 bg-white shadow-sm text-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-orange-500 group-hover:text-white transition">
+                        <i class="fas fa-user-plus text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-3">Staff Augmentation</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">Bridge skill gaps instantly with our top-tier specialists.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partner Banner -->
+    <section class="py-12 bg-slate-900 border-t border-slate-800">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-slate-400 uppercase tracking-widest text-xs mb-8 font-semibold">Our Strategic Alliances</p>
+            <div class="flex justify-center items-center opacity-80 hover:opacity-100 transition">
+                <div class="text-4xl font-bold text-white flex items-center gap-4">
+                   <i class="fas fa-handshake text-secondary"></i> ORACLE <span class="bg-white text-slate-900 text-xs px-2 py-1 rounded font-bold uppercase tracking-wide">Gold Partner</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section id="contact" class="py-24 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-violet-600 to-indigo-600"></div>
+        <!-- Pattern Overlay -->
+        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 30px 30px;"></div>
+        
+        <div class="container mx-auto px-6 relative z-10 text-center">
+            <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">Ready to Elevate Your IT Strategy?</h2>
+            <p class="text-violet-100 mb-10 max-w-2xl mx-auto text-lg">Join the hundreds of companies transforming their future with Best IT Practices.</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="mailto:contact@bestitpractices.com" class="px-10 py-4 bg-white text-indigo-600 font-bold rounded-full hover:bg-slate-50 transition shadow-2xl">
+                    Contact Our Experts
+                </a>
+                <a href="#" class="px-10 py-4 bg-transparent border-2 border-white/30 text-white font-bold rounded-full hover:bg-white/10 transition">
+                    Schedule Audit
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 text-slate-400 pt-20 pb-10">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-12 mb-16">
+                <!-- Col 1 -->
+                <div class="col-span-1 md:col-span-1">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-8 h-8 bg-secondary text-white flex items-center justify-center rounded-lg font-bold">
+                            <i class="fas fa-code text-xs"></i>
+                        </div>
+                        <span class="text-xl font-bold text-white tracking-tight">Best IT Practices</span>
+                    </div>
+                    <p class="text-sm mb-6 leading-relaxed text-slate-500">
+                        Delivering technological excellence and innovative strategies to empower businesses globally.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center hover:bg-secondary hover:text-white transition"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center hover:bg-secondary hover:text-white transition"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+
+                <!-- Col 2 -->
+                <div>
+                    <h4 class="text-white font-bold mb-6">Company</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#" class="hover:text-secondary transition">About Us</a></li>
+                        <li><a href="#" class="hover:text-secondary transition">Careers</a></li>
+                        <li><a href="#" class="hover:text-secondary transition">News & Blog</a></li>
+                        <li><a href="#contact" class="hover:text-secondary transition">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3 -->
+                <div>
+                    <h4 class="text-white font-bold mb-6">Solutions</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#" class="hover:text-secondary transition">Data Management</a></li>
+                        <li><a href="#" class="hover:text-secondary transition">Enterprise Suite</a></li>
+                        <li><a href="#" class="hover:text-secondary transition">Cloud Services</a></li>
+                        <li><a href="#" class="hover:text-secondary transition">Security Audit</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4 -->
+                <div>
+                    <h4 class="text-white font-bold mb-6">Connect</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-secondary"></i>
+                            <span>Tech Park, Sector 2, Noida, India</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-3 text-secondary"></i>
+                            <a href="mailto:contact@bestitpractices.com" class="hover:text-white">contact@bestitpractices.com</a>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone mr-3 text-secondary"></i>
+                            <span>+91-9876543210</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-900 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-slate-600">
+                <p>&copy; 2024 Best IT Practices. All Rights Reserved.</p>
+                <div class="mt-4 md:mt-0 space-x-6">
+                    <a href="#" class="hover:text-white transition">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('active');
+            const icon = btn.querySelector('i');
+            if (menu.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        menu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.remove('active');
+                btn.querySelector('i').classList.add('fa-bars');
+                btn.querySelector('i').classList.remove('fa-times');
+            });
+        });
+    </script>
+</body>
+</html>
